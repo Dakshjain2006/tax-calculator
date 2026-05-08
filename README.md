@@ -3,7 +3,7 @@
 A comprehensive income tax calculator for India supporting both New and Old tax regimes.
 
 ## 🚀 Live Demo
-[dakshjain.github.io/tax-calculator](https://dakshjain.github.io/tax-calculator)
+[Dakshjain2006.github.io/tax-calculator](https://Dakshjain2006.github.io/tax-calculator)
 
 ## ✨ Features
 - **New Regime** (FY 2024-25) with ₹75,000 standard deduction
@@ -25,13 +25,5 @@ tax-calculator/
 ├── style.css     ← Dark theme styles
 ├── script.js     ← Tax logic & calculations
 └── README.md
-```
-
-## 🏃 Run Locally
-```bash
-git clone https://github.com/dakshjain/tax-calculator
-open index.html
-```
-
 ---
 Built by **Daksh Jain** · B.Tech CSAI, NSUT
