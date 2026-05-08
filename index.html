@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Indian Tax Calculator FY 2024-25 — Daksh Jain</title>
+  <link rel="stylesheet" href="style.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=IBM+Plex+Sans:wght@300;400;500;600&display=swap" rel="stylesheet" />
+</head>
+<body>
+  <div class="container">
+    <div class="top-bar">
+      <h1>Tax Calculator</h1>
+      <div class="regime-toggle">
+        <button class="regime-btn active" id="new-btn" onclick="setRegime('new')">New Regime</button>
+        <button class="regime-btn"        id="old-btn" onclick="setRegime('old')">Old Regime</button>
+      </div>
+    </div>
+
+    <div class="grid">
+      <!-- Input -->
+      <div class="card">
+        <div class="card-title">Income Details</div>
+
+        <div class="field">
+          <label>Annual Income</label>
+          <div class="input-wrap"><span class="currency">₹</span>
+            <input type="number" id="income" value="1200000" oninput="calculate()" />
+          </div>
+        </div>
+
+        <div class="field">
+          <label>Age Group</label>
+          <select id="age" onchange="calculate()">
+            <option value="general">Below 60</option>
+            <option value="senior">60–80 (Senior)</option>
+            <option value="super">Above 80 (Super Senior)</option>
+          </select>
+        </div>
+
+        <!-- Old-regime deductions (hidden by default) -->
+        <div id="old-fields" class="hidden">
+          <div class="field"><label>HRA / Rent Deduction</label><div class="input-wrap"><span class="currency">₹</span><input type="number" id="hra"    value="0"      oninput="calculate()" /></div></div>
+          <div class="field"><label>80C (max ₹1.5L)</label>     <div class="input-wrap"><span class="currency">₹</span><input type="number" id="sec80c" value="150000" oninput="calculate()" /></div></div>
+          <div class="field"><label>80D (Health Insurance)</label><div class="input-wrap"><span class="currency">₹</span><input type="number" id="sec80d" value="25000"  oninput="calculate()" /></div></div>
+          <div class="field"><label>Other Deductions</label>    <div class="input-wrap"><span class="currency">₹</span><input type="number" id="other"  value="0"      oninput="calculate()" /></div></div>
+        </div>
+
+        <button class="calc-btn" onclick="calculate()">Calculate Tax →</button>
+      </div>
+
+      <!-- Results -->
+      <div class="card">
+        <div class="card-title">Tax Breakdown</div>
+
+        <div class="donut-wrap">
+          <svg width="140" height="140" viewBox="0 0 140 140" class="donut">
+            <circle cx="70" cy="70" r="54" fill="none" stroke="#1a1d2e" stroke-width="16" />
+            <circle id="donut-ring" cx="70" cy="70" r="54" fill="none" stroke="#5a4af0"
+              stroke-width="16" stroke-dasharray="339" stroke-dashoffset="339"
+              stroke-linecap="round" transform="rotate(-90 70 70)" />
+            <text id="d-pct" x="70" y="66" text-anchor="middle" fill="#818cf8"
+              font-family="Syne,sans-serif" font-size="13" font-weight="700">0%</text>
+            <text x="70" y="82" text-anchor="middle" fill="#444"
+              font-family="IBM Plex Sans,sans-serif" font-size="10">tax rate</text>
+          </svg>
+        </div>
+
+        <div class="result-panel">
+          <div class="result-row">          <span class="result-label">Gross Income</span>     <span class="result-val" id="r-gross">—</span></div>
+          <div class="result-row">          <span class="result-label">Total Deductions</span>  <span class="result-val" id="r-ded">—</span></div>
+          <div class="result-row">          <span class="result-label">Taxable Income</span>    <span class="result-val" id="r-taxable">—</span></div>
+          <div class="result-row">          <span class="result-label">Income Tax</span>         <span class="result-val" id="r-tax">—</span></div>
+          <div class="result-row">          <span class="result-label">Cess (4%)</span>          <span class="result-val" id="r-cess">—</span></div>
+          <div class="result-row big">      <span class="result-label">Total Tax Payable</span>  <span class="result-val" id="r-total">—</span></div>
+          <div class="result-row highlight"><span class="result-label">In-Hand (Monthly)</span>  <span class="result-val" id="r-inhand">—</span></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Slab table -->
+    <div class="card" style="margin-top:24px">
+      <div class="card-title">Tax Slab Breakdown</div>
+      <table class="slab-table">
+        <thead><tr><th>Slab</th><th>Rate</th><th>Tax Amount</th></tr></thead>
+        <tbody id="slab-body"></tbody>
+      </table>
+      <p class="note">* Based on FY 2024-25 (AY 2025-26). New regime includes ₹75,000 standard deduction. Educational purposes only — consult a CA for filing.</p>
+    </div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
